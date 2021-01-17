@@ -7,6 +7,7 @@ var currentIconEl = document.querySelector('.current-icon');
 var currentTempEl = document.querySelector('.current-temp');
 var currentHumiEl = document.querySelector('.current-humidity');
 var currentWindEl = document.querySelector('.current-windspeed');
+var currentUviEl = document.querySelector('.current-uvi');
 
 var inputClickHandler = function(event) {
    
@@ -25,7 +26,7 @@ var inputClickHandler = function(event) {
     } else {
       alert('Please enter a valid city name');
     }
-  };
+};
 
 var getCurrentWeatherByCity = function(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7b411f46f5f80992ca33f703bb9e703f";
@@ -47,7 +48,6 @@ var getCurrentWeatherByCity = function(city) {
       });
 };
 
-
 /*document.cookies.set('name', 'value', {
     sameSite: 'none',
     secure: true
@@ -57,16 +57,7 @@ var displayWeather = function(data) {
         currentCityEl.textContent = 'No city found.';
         return;
     }
-    
     currentCityEl.textContent = data.name;
-    /*currentDateEl.textContent = "(" + weather.dt.getdate() + ")";
-    var iconCode = weather.weather[0].icon;
-    console.log(iconCode);
-    var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
-    currentIconEl.innerHTML = ("<img src='" + iconUrl + "'>");*/
-    currentTempEl.textContent = data.main.temp + "\xB0F";
-    currentHumiEl.textContent = data.main.humidity + "%";
-    currentWindEl.textContent = data.wind.speed + "mph";
     var longitude = data.coord.lon;
     var latitude = data.coord.lat;
 
@@ -83,7 +74,7 @@ var getCurrentWeatherForecast = function(longitude,latitude) {
         if (response.ok) {
           response.json().then(function(data) {
             console.log(data);
-            console.log(data.timezone);
+            //console.log(data.timezone);
             displayForecast(data); 
           });
         } else {
@@ -96,7 +87,21 @@ var getCurrentWeatherForecast = function(longitude,latitude) {
 };
 
 var displayForecast = function(forecast) {
+    // current weather
+    
+    /*currentDateEl.textContent = "(" + forecast.dt.getdate() + ")";
+    var iconCode = forecast.weather[0].icon;
+    console.log(iconCode);
+    var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+    currentIconEl.innerHTML = ("<img src='" + iconUrl + "'>");*/
+    currentTempEl.textContent = forecast.current.temp + "\xB0F";
+    currentHumiEl.textContent = forecast.current.humidity + "%";
+    currentWindEl.textContent = forecast.current.wind_speed + "mph";
+    currentUviEl.textContent = forecast.current.uvi;
 
+    // forecast weather
+
+    
 };
 
 
