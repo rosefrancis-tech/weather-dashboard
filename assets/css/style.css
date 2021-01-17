@@ -89,13 +89,19 @@ main {
 
 .current-city {
     padding: 1rem 1rem 1rem 0;
+    font-size: 2rem;
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    display:inline;
 }
-/*
-.current-icon {
-    width: 5px;
-    height: 5px;
+
+.current-icon,
+.current-img {
+    display: inline;
+    width: 6%;
 }
-*/
+
 .forecast-weather {
     
     /*background-color: rgb(255, 255, 227);*/
