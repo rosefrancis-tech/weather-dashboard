@@ -161,10 +161,14 @@ var displayWeather = function(forecast) {
     currentHumiEl.textContent = forecast.current.humidity + "%";
     currentWindEl.textContent = forecast.current.wind_speed + "mph";
     currentUviEl.textContent = forecast.current.uvi;
+    var uvi = forecast.current.uvi;
+    console.log(uvi);
+    //switch()
+
 
     // forecast weather
 
-    for(var i = 0; i < 5; i++) {
+    for(var i = 1; i <= 5; i++) {
 
         var forecastCardEl = document.getElementById('forecast-card');
         
@@ -176,12 +180,18 @@ var displayWeather = function(forecast) {
         var dateEl = document.createElement('div');
         dateEl.className = "date";
         rowEl.appendChild(dateEl);
-        /*date*/
+        var unixTimestamp = forecast.daily[i].dt;
+        var dateObj = new Date(unixTimestamp * 1000);
+        var forecastDate = dateObj.toLocaleDateString();
+        dateEl.textContent = forecastDate;
+    
 
         var iconEl = document.createElement('div');
         iconEl.className = "icon";
         rowEl.appendChild(iconEl);
-        /*icon*/
+        var iconCode = forecast.daily[i].weather[0].icon;
+        var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
+        iconEl.innerHTML = ("<img src='" + iconUrl + "'>");
 
         var tempEl = document.createElement('div');
         tempEl.className = "temp";
