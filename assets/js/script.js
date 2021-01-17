@@ -8,21 +8,48 @@ var currentTempEl = document.querySelector('.current-temp');
 var currentHumiEl = document.querySelector('.current-humidity');
 var currentWindEl = document.querySelector('.current-windspeed');
 var currentUviEl = document.querySelector('.current-uvi');
+var cities = [];
+var savedCities = localStorage.getItem("cities");
+
+var loadLists = function() {
+    
+    savedCities = JSON.parse(savedCities);
+    if(savedCities != null) {
+        createList();
+    }
+    else {
+        savedCities =[];
+    }
+};
+
+var createList = function() {
+    for(var j=0; j < savedCities.length; j ++) {
+        var savedcityContainerEl = document.querySelector('#saved-cities');
+        var savedcityRowEl = document.createElement('div');
+        savedcityRowEl.className = "row";
+        savedcityContainerEl.appendChild(savedcityRowEl);
+    
+        var savedcityColEl = document.createElement('div');
+        savedcityColEl.className = "col";
+        savedcityColEl.textContent = savedCities[j];
+        savedcityRowEl.appendChild(savedcityColEl);
+    }
+};
 
 var inputClickHandler = function(event) {
    
     // prevent page from refreshing
-    //event.preventDefault();
+    event.preventDefault();
   
     // get value from input element
     var cityName = userTextEl.value.trim();
-  
-    if (cityName) {
+    
+    if (cityName) {    
         getCurrentWeatherByCity(cityName);
   
-      // clear old content
-      currentCityEl.textContent = '';
-      userTextEl.value = '';
+        // clear old content
+        currentCityEl.textContent = '';
+        userTextEl.value = '';
     } else {
       alert('Please enter a valid city name');
     }
@@ -35,38 +62,35 @@ var getCurrentWeatherByCity = function(city) {
         // request was successful
         if (response.ok) {
           response.json().then(function(data) {
-            //console.log(data);
-            //console.log(data.name);
             displayWeather(data); 
           });
         } else {
           alert('Error: ' + response.statusText);
         }
-      })
-      .catch(function(error) {
+    })
+    .catch(function(error) {
         alert('Unable to connect to Weather Dashboard');
-      });
+    });
 };
 
-/*document.cookies.set('name', 'value', {
-    sameSite: 'none',
-    secure: true
-  })*/
+
 var displayWeather = function(data) {
     if (data === null) {
         currentCityEl.textContent = 'No city found.';
         return;
     }
     currentCityEl.textContent = data.name;
+    savedCities.push(data.name);
+    cities = savedCities;
+    localStorage.setItem("cities", JSON.stringify(cities));
+    
     var longitude = data.coord.lon;
     var latitude = data.coord.lat;
-
     getCurrentWeatherForecast(longitude,latitude);
 };
 
 var getCurrentWeatherForecast = function(longitude,latitude) {
-    //console.log(longitude);
-    //console.log(latitude);
+
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude +"&exclude=minutely,hourly,alerts&units=imperial&appid=7b411f46f5f80992ca33f703bb9e703f";
     fetch(apiUrl)
     .then(function(response) {
@@ -74,16 +98,15 @@ var getCurrentWeatherForecast = function(longitude,latitude) {
         if (response.ok) {
           response.json().then(function(data) {
             console.log(data);
-            //console.log(data.timezone);
             displayForecast(data); 
           });
         } else {
           alert('Error: ' + response.statusText);
         }
-      })
-      .catch(function(error) {
+    })
+    .catch(function(error) {
         alert('Unable to connect to Weather Dashboard');
-      });
+    });
 };
 
 var displayForecast = function(forecast) {
@@ -104,8 +127,10 @@ var displayForecast = function(forecast) {
     for(var i = 0; i < 5; i++) {
 
         var forecastCardEl = document.getElementById('forecast-card');
+        
         var rowEl = document.createElement('div');
-        rowEl.className = "col-sm";
+        rowEl.classList = "col-sm forecast-row";
+        rowEl.setAttribute("id", "forecast-row");
         forecastCardEl.appendChild(rowEl);
 
         var dateEl = document.createElement('div');
@@ -121,16 +146,18 @@ var displayForecast = function(forecast) {
         var tempEl = document.createElement('div');
         tempEl.className = "temp";
         rowEl.appendChild(tempEl);
-        tempEl.innerHTML = forecast.daily[i].temp.day;
+        tempEl.innerHTML = "Temp: " + forecast.daily[i].temp.day + "\xB0F";
 
         var humiEl = document.createElement('div');
         humiEl.className = "humi";
         rowEl.appendChild(humiEl);
-        humiEl.innerHTML = forecast.daily[i].humidity;
-
+        humiEl.innerHTML = "Humidity: " + forecast.daily[i].humidity + "%";
     }
 };
 
-
+loadLists();
 // add event listeners to city input element
 searchEl.addEventListener('click', inputClickHandler);
+
+savedcityColEl.addEventListener('click', displayWeather);
+
