@@ -74,6 +74,7 @@ main {
 }
 .weather {
     height: fit-content;
+    width: 70%;
 }
 .current-weather {
     /*background-color: rgb(255, 255, 227);*/
@@ -113,11 +114,12 @@ main {
     color: white;
     padding: 5px;
     /*width: fit-content;*/
-    height: fit-content;
+    /*height: 25%;*/
+    width: 15%;
     margin: 1rem;
     line-height: 1rem;
     font-weight: normal;
     font-size: 1em;
     text-align: left;
-    border-radius: 15px;
+    border-radius: 10px;
 }

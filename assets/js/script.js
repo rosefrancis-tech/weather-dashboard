@@ -101,7 +101,34 @@ var displayForecast = function(forecast) {
 
     // forecast weather
 
-    
+    for(var i = 0; i < 5; i++) {
+
+        var forecastCardEl = document.getElementById('forecast-card');
+        var rowEl = document.createElement('div');
+        rowEl.className = "col-sm";
+        forecastCardEl.appendChild(rowEl);
+
+        var dateEl = document.createElement('div');
+        dateEl.className = "date";
+        rowEl.appendChild(dateEl);
+        /*date*/
+
+        var iconEl = document.createElement('div');
+        iconEl.className = "icon";
+        rowEl.appendChild(iconEl);
+        /*icon*/
+
+        var tempEl = document.createElement('div');
+        tempEl.className = "temp";
+        rowEl.appendChild(tempEl);
+        tempEl.innerHTML = forecast.daily[i].temp.day;
+
+        var humiEl = document.createElement('div');
+        humiEl.className = "humi";
+        rowEl.appendChild(humiEl);
+        humiEl.innerHTML = forecast.daily[i].humidity;
+
+    }
 };
 
 
