@@ -8,13 +8,17 @@ var currentTempEl = document.querySelector('.current-temp');
 var currentHumiEl = document.querySelector('.current-humidity');
 var currentWindEl = document.querySelector('.current-windspeed');
 var currentUviEl = document.querySelector('.current-uvi');
+var savedcityContainerEl = document.querySelector('#saved-cities');
 var cities = [];
 var savedCities = localStorage.getItem("cities");
+var flag = false;
+
 
 var loadLists = function() {
     
     savedCities = JSON.parse(savedCities);
     if(savedCities != null) {
+        flag = true;
         createList();
     }
     else {
@@ -24,15 +28,16 @@ var loadLists = function() {
 
 var createList = function() {
     for(var j=0; j < savedCities.length; j ++) {
-        var savedcityContainerEl = document.querySelector('#saved-cities');
+        
         var savedcityRowEl = document.createElement('div');
         savedcityRowEl.className = "row";
         savedcityContainerEl.appendChild(savedcityRowEl);
     
         var savedcityColEl = document.createElement('div');
-        savedcityColEl.className = "col";
+        savedcityColEl.classList = "col favourite";
         savedcityColEl.textContent = savedCities[j];
         savedcityRowEl.appendChild(savedcityColEl);
+        
     }
 };
 
@@ -54,6 +59,24 @@ var inputClickHandler = function(event) {
       alert('Please enter a valid city name');
     }
 };
+
+
+var savedCityWeather = function(event) {
+    if(flag === true) {
+        var cityName = event.target.textContent;
+        if (cityName) {    
+            getCurrentWeatherByCity(cityName);
+      
+            // clear old content
+            currentCityEl.textContent = '';
+            userTextEl.value = '';
+        } else {
+          alert('Please enter a valid city name');
+        }
+    }
+};
+
+
 
 var getCurrentWeatherByCity = function(city) {
     var apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=7b411f46f5f80992ca33f703bb9e703f";
@@ -112,7 +135,7 @@ var getCurrentWeatherForecast = function(longitude,latitude) {
 var displayForecast = function(forecast) {
     // current weather
     
-    /*currentDateEl.textContent = "(" + forecast.dt.getdate() + ")";
+    /*currentDateEl.textContent = "(" +  + ")";
     var iconCode = forecast.weather[0].icon;
     console.log(iconCode);
     var iconUrl = "http://openweathermap.org/img/wn/" + iconCode + "@2x.png";
@@ -159,5 +182,5 @@ loadLists();
 // add event listeners to city input element
 searchEl.addEventListener('click', inputClickHandler);
 
-savedcityColEl.addEventListener('click', displayWeather);
+savedcityContainerEl.addEventListener('click', savedCityWeather);
 
