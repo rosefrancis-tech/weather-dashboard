@@ -89,7 +89,12 @@ main {
 .current-city {
     padding: 1rem 1rem 1rem 0;
 }
-
+/*
+.current-icon {
+    width: 5px;
+    height: 5px;
+}
+*/
 .forecast-weather {
     
     /*background-color: rgb(255, 255, 227);*/
