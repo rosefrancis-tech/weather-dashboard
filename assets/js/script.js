@@ -34,8 +34,8 @@ var getCurrentWeatherByCity = function(city) {
         // request was successful
         if (response.ok) {
           response.json().then(function(data) {
-            console.log(data);
-            console.log(data.name);
+            //console.log(data);
+            //console.log(data.name);
             displayWeather(data); 
           });
         } else {
@@ -74,9 +74,30 @@ var displayWeather = function(data) {
 };
 
 var getCurrentWeatherForecast = function(longitude,latitude) {
-    console.log(longitude);
-    console.log(latitude);
-}
+    //console.log(longitude);
+    //console.log(latitude);
+    var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=" + latitude + "&lon=" + longitude +"&exclude=minutely,hourly,alerts&units=imperial&appid=7b411f46f5f80992ca33f703bb9e703f";
+    fetch(apiUrl)
+    .then(function(response) {
+        // request was successful
+        if (response.ok) {
+          response.json().then(function(data) {
+            console.log(data);
+            console.log(data.timezone);
+            displayForecast(data); 
+          });
+        } else {
+          alert('Error: ' + response.statusText);
+        }
+      })
+      .catch(function(error) {
+        alert('Unable to connect to Weather Dashboard');
+      });
+};
+
+var displayForecast = function(forecast) {
+
+};
 
 
 // add event listeners to city input element
