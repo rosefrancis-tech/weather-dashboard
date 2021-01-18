@@ -2,6 +2,7 @@
 var userInputEl = document.querySelector('#user-input');
 var userTextEl = document.querySelector('#search-text');
 var searchEl = document.querySelector('#search-icon');
+var trashEl = document.querySelector('#trash-icon');
 var currentCityEl = document.querySelector('#current-city');
 var currentDateEl = document.querySelector('.current-date');
 var currentIconEl = document.querySelector('.current-icon');
@@ -24,6 +25,8 @@ var loadLists = function() {
         flag = true;
         // call function for display list of searched city names
         createList();
+        //
+
     }
     else {
         savedCities =[];
@@ -245,12 +248,18 @@ var displayWeather = function(forecast) {
         humiEl.innerHTML = "Humidity: " + forecast.daily[i].humidity + "%";
     }
 };
-
+// Function for clear local storage
+var clearSavedCity = function() {
+    localStorage.clear();
+    location.reload();
+}
 // Function for initial page load    
 loadLists();
 
 // add event listener to city input element
 searchEl.addEventListener('click', inputClickHandler);
+// add event listener for clear local storage
+trashEl.addEventListener('click', clearSavedCity);
 // add event listerner for saved city list
 savedcityContainerEl.addEventListener('click', savedCityWeather);
 
