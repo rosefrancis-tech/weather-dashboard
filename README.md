@@ -5,10 +5,10 @@
  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; [***Live Project***](#Live-Project)
 
 ## Summary 
-This website can be used to search for westher of cities.
+This website can be used to search and display the weather of cities.
 
 ## Introduction
-This website displays weather of the city searched by the user. It provides the current temperature, humidity, wind speed and UV index. The 5 day forecast is also displayed.
+This website displays weather of the city searched by the user. It provides the current temperature, humidity, wind speed and UV index. The 5 day forecast is also displayed. The searched city names are displayed and can be clicked to search the weather agian. The searched list can be cleared using trash button.
 
 ## User Story
 <details>
