@@ -39,7 +39,7 @@ This website displays weather of the city searched by the user. It provides the 
 ## Mock-Up
 The following image shows the web application's appearance and functionality.
 
-![Mock-up image](/assets/images/mock-up.gif "Mock-up image")
+![Mock-up image](/assets/images/mock-up.jpg "Mock-up image")
 
 ## Code Review
 
