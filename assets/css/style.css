@@ -102,6 +102,11 @@ main {
     width: 6%;
 }
 
+.current-uvi {
+    color: white;
+    padding: 0.25rem 1rem 0.25rem 1rem;
+    border-radius: 5px;
+}
 .forecast-weather {
     
     /*background-color: rgb(255, 255, 227);*/

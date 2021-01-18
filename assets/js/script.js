@@ -9,6 +9,7 @@ var currentHumiEl = document.querySelector('.current-humidity');
 var currentWindEl = document.querySelector('.current-windspeed');
 var currentUviEl = document.querySelector('.current-uvi');
 var savedcityContainerEl = document.querySelector('#saved-cities');
+var forecastContainerEl = document.getElementById("forecast-container");
 var cities = [];
 var savedCities = localStorage.getItem("cities");
 var flag = false;
@@ -53,6 +54,10 @@ var inputClickHandler = function(event) {
         getCurrentWeatherByCity(cityName);
   
         // clear old content
+        while (forecastContainerEl.firstChild) {
+            forecastContainerEl.removeChild(forecastContainerEl.firstChild);
+        }
+        //forecastContainerEl.removeChild();
         currentCityEl.textContent = '';
         userTextEl.value = '';
     } else {
@@ -104,15 +109,25 @@ var displayCity = function(data) {
     }
     // display city name
     currentCityEl.textContent = data.name;
-    var flag = false;
+    var flag2 = false;
     // avoid saving duplicate city names
     for (var k=0; k < savedCities.length; k++) {
         if(data.name === savedCities[k]) {
             flag2 = true;
         }
     }
-    if (flag === false) {
+    if (flag2 === false) {
         savedCities.push(data.name);
+        // replace with fn
+        var savedcityRowEl = document.createElement('div');
+        savedcityRowEl.className = "row";
+        savedcityContainerEl.appendChild(savedcityRowEl);
+    
+        var savedcityColEl = document.createElement('div');
+        savedcityColEl.classList = "col favourite";
+        savedcityColEl.textContent = data.name;
+        savedcityRowEl.appendChild(savedcityColEl);
+
     }
     // save city names to local storage
     cities = savedCities;
@@ -163,15 +178,31 @@ var displayWeather = function(forecast) {
     currentUviEl.textContent = forecast.current.uvi;
     var uvi = forecast.current.uvi;
     console.log(uvi);
-    //switch()
-
-
+        if(uvi >= 0 && uvi <= 2){
+            currentUviEl.setAttribute("style", "background-color: green");
+        }
+        if(uvi >= 3 && uvi <= 5) {
+            currentUviEl.setAttribute("style", "background-color: yellow");
+        }
+        if(uvi >= 6 && uvi <= 7){
+            currentUviEl.setAttribute("style", "background-color: orange");
+        }
+        if(uvi >= 8 && uvi <= 10){
+            currentUviEl.setAttribute("style", "background-color: red");
+        }
+        if(uvi >= 11){
+            currentUviEl.setAttribute("style", "background-color: violet");
+        }
+               
     // forecast weather
+    
 
+    var forecastCardEl = document.createElement('div');
+    forecastCardEl.className = "row";
+    forecastCardEl.setAttribute("id", "forecast-card");
+    forecastContainerEl.appendChild(forecastCardEl);
+    
     for(var i = 1; i <= 5; i++) {
-
-        var forecastCardEl = document.getElementById('forecast-card');
-        
         var rowEl = document.createElement('div');
         rowEl.classList = "col-sm forecast-row";
         rowEl.setAttribute("id", "forecast-row");
