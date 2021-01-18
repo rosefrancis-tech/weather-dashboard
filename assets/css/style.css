@@ -7,6 +7,8 @@ body {
     margin:0;
 }
 
+/* Header style starts*/
+
 header {
     background-color: rgb(19, 57, 71);
     color: rgb(221, 234, 235);
@@ -16,16 +18,18 @@ header {
     text-align: center;
       
 }
+/* Header style ends*/
+
 main {
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
 
+/* Search section style starts*/
 .card {
     background-color: rgb(221, 234, 235); 
     height: fit-content;
-    /*float: left;*/
     margin-right: 1rem;
     padding: 1rem;
     width: 25%;
@@ -34,8 +38,8 @@ main {
 .search-label {
     font-size: large;
     font-weight: 700;
-    
 }
+
 .search-input {
     
     margin-bottom: 1rem;
@@ -72,6 +76,9 @@ main {
     border-color: cadetblue;
     padding: 1rem
 }
+/* Search section style ends*/
+
+/* Current weather style starts*/
 .weather {
     height: fit-content;
     width: 70%;
@@ -107,6 +114,9 @@ main {
     padding: 0.25rem 1rem 0.25rem 1rem;
     border-radius: 5px;
 }
+/* Current weather style ends*/
+
+/* Forecast weather style starts*/
 .forecast-weather {
     
     /*background-color: rgb(255, 255, 227);*/
@@ -124,8 +134,6 @@ main {
     background-color: rgb(44, 124, 228);
     color: white;
     padding: 5px;
-    /*width: fit-content;*/
-    /*height: 25%;*/
     width: 15%;
     margin: 1rem;
     line-height: 1rem;
@@ -134,3 +142,4 @@ main {
     text-align: left;
     border-radius: 10px;
 }
+/* Forecast weather style ends*/
