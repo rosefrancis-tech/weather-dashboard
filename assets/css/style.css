@@ -142,4 +142,10 @@ main {
     text-align: left;
     border-radius: 10px;
 }
+
+.forecast-row .icon,
+.forecast-row .icon img {
+    display: inline;
+    width: 35%;
+}
 /* Forecast weather style ends*/
