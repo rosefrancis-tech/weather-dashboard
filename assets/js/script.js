@@ -25,6 +25,11 @@ var loadLists = function() {
     else {
         savedCities =[];
     }
+    var showCurrentLocation = confirm("Allow ");
+    if(showCurrentLocation === true) {
+        getLocation();
+    }
+    
 };
 
 var createList = function() {
@@ -235,6 +240,38 @@ var displayWeather = function(forecast) {
         humiEl.innerHTML = "Humidity: " + forecast.daily[i].humidity + "%";
     }
 };
+
+
+      
+var getLocation = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else { 
+        alert("Geolocation is not supported by this browser.");
+    }
+};
+
+var showPosition = function(position) {
+    alert("Latitude: " + position.coords.latitude + "Longitude: " + position.coords.longitude);
+};
+
+var showError = function(error) {
+    switch(error.code) {
+    case error.PERMISSION_DENIED:
+        alert("User denied the request for Geolocation.");
+        break;
+    case error.POSITION_UNAVAILABLE:
+        alert(x.innerHTML = "Location information is unavailable.");
+        break;
+    case error.TIMEOUT:
+        alert("The request to get user location timed out.");
+        break;
+    case error.UNKNOWN_ERROR:
+        alert("An unknown error occurred.");
+        break;
+    }
+};
+        
 
 loadLists();
 // add event listeners to city input element
