@@ -81,6 +81,9 @@ var savedCityWeather = function(event) {
             getCurrentWeatherByCity(cityName);
       
             // clear old content
+            while (forecastContainerEl.firstChild) {
+                forecastContainerEl.removeChild(forecastContainerEl.firstChild);
+            }
             currentCityEl.textContent = '';
             userTextEl.value = '';
         } else {
